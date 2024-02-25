@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 13966, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: WallsV2
+  m_EditorClassIdentifier: 
+  templateScene: {fileID: 102900000, guid: 25cc15d61dd1fc94bbab9b39982c5428, type: 3}
+  templateName: 
+  description: 
+  preview: {fileID: 0}
+  dependencies:
+  - dependency: {fileID: 11400000, guid: 5173c122308df0d4dbd46215e0dcd48a, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 11400000, guid: eeffb81f42e9ebd42b2b3b74cdbdd5bf, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 11400000, guid: 951ec90fa7299f84298e9a66e565c075, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 11400000, guid: 60b2f11c82918704cae5e37b3f0a4bbd, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 11400000, guid: bd2f7855be2c9d54fa553748bf0b8fcd, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 11400000, guid: 0e6d4a519f57df14295c30439638b2be, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 6200000, guid: c4032cacbd8bef248bd4a35db5e2a435, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 2800000, guid: b42c6dc862aa819408ba41cd9f689d99, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+    instantiationMode: 0
+  - dependency: {fileID: 2800000, guid: 2f699bc1428d77b41884e3f2665db718, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 11400000, guid: 7fc58242c1237d845b56c275331476a3, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 7843463060007606627, guid: 451a543ca3219a24e8d39aa765248c99, type: 3}
+    instantiationMode: 0
+  - dependency: {fileID: 11400000, guid: 12a4d97fe93c6c245ad785d15fdfe4b3, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 11400000, guid: 602051d7a46d8a944a712636e1d654f7, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 11400000, guid: 1ab69cd783acf8e49ab6c4c6a9689818, type: 2}
+    instantiationMode: 1
+  - dependency: {fileID: 11400000, guid: aefb0a4495125264b8b92294a8dbdd92, type: 2}
+    instantiationMode: 1
+  templatePipeline: {fileID: 0}
+  badge: {fileID: 0}
+  addToDefaults: 0
