@@ -76,7 +76,10 @@ public class Flashlight : MonoBehaviour
     {
         if (batteryLifeText != null)
         {
-            batteryLifeText.text = "Battery: " + Mathf.CeilToInt(currentBatteryLife).ToString() + "%";
+            // Calculate the current battery life as a percentage of the total battery life
+            float batteryPercentage = (currentBatteryLife / batteryLife) * 30;
+            // Update the text to display this percentage, rounded to the nearest integer for readability
+            batteryLifeText.text = Mathf.RoundToInt(batteryPercentage).ToString() + "%";
         }
     }
 }
