@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI; // Required for UI elements manipulation
 using System.Collections;
 
 public class EnemyFollow : MonoBehaviour
@@ -9,6 +10,7 @@ public class EnemyFollow : MonoBehaviour
     public float obstacleDetectionDistance = 2f;
     public Transform playerTransform;
     public LayerMask obstacleLayer;
+    public Image redOverlay; // Reference to the red overlay Image component
 
     private Vector2 startPosition;
     private bool isPlayerInRange = false;
@@ -17,6 +19,8 @@ public class EnemyFollow : MonoBehaviour
     void Start()
     {
         startPosition = transform.position;
+        // Ensure the redOverlay is initially invisible or has minimal visibility
+        redOverlay.color = new Color(redOverlay.color.r, redOverlay.color.g, redOverlay.color.b, 0f);
     }
 
     void Update()
@@ -37,6 +41,9 @@ public class EnemyFollow : MonoBehaviour
                 followDelayCoroutine = StartCoroutine(FollowDelay());
             }
         }
+
+        // Adjust the red overlay based on distance to player
+        AdjustRedOverlay(distanceToPlayer);
     }
 
     IEnumerator FollowDelay()
@@ -87,5 +94,12 @@ public class EnemyFollow : MonoBehaviour
     {
         // Call the method to return to start position in LateUpdate to avoid conflict with follow logic
         MoveTowardsStartPositionWithObstacleAvoidance();
+    }
+
+    void AdjustRedOverlay(float distanceToPlayer)
+    {
+        // Adjust the intensity of the red color based on the enemy's proximity to the player
+        float intensity = 1f - Mathf.Clamp01(distanceToPlayer / followRadius);
+        redOverlay.color = new Color(redOverlay.color.r, redOverlay.color.g, redOverlay.color.b, intensity);
     }
 }
