@@ -58,7 +58,8 @@ public class EnemyFollowC : MonoBehaviour
             StartCoroutine(Patrol());
         }
 
-        AdjustRedOverlay(distanceToPlayer);
+        EnemyUtilities.AdjustRedOverlay(redOverlay, distanceToPlayer, followRadius);
+
     }
 
     IEnumerator DelayedStopFollowing()
@@ -127,9 +128,4 @@ public class EnemyFollowC : MonoBehaviour
         }
     }
 
-    public void AdjustRedOverlay(float distanceToPlayer)
-    {
-        float intensity = 0.8f - Mathf.Clamp01(distanceToPlayer / followRadius);
-        redOverlay.color = new Color(redOverlay.color.r, redOverlay.color.g, redOverlay.color.b, intensity);
-    }
 }

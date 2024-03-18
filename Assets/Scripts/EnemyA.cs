@@ -58,7 +58,7 @@ public class EnemyFollow : MonoBehaviour
             FaceTarget();
         }
 
-        AdjustRedOverlay(distanceToPlayer);
+        EnemyUtilities.AdjustRedOverlay(redOverlay, distanceToPlayer, followRadius);
     }
 
     IEnumerator DelayedStopFollowing()
@@ -116,7 +116,7 @@ public class EnemyFollow : MonoBehaviour
 
     void LateUpdate()
     {
-        
+
         }
 
     void MoveTowardsStartPositionWithObstacleAvoidance()
@@ -126,11 +126,5 @@ public class EnemyFollow : MonoBehaviour
             Vector2 directionToStart = (startPosition - (Vector2)transform.position).normalized;
             MoveWithObstacleAvoidance(directionToStart);
         }
-    }
-
-    void AdjustRedOverlay(float distanceToPlayer)
-    {
-        float intensity = 1f - Mathf.Clamp01(distanceToPlayer / followRadius);
-        redOverlay.color = new Color(redOverlay.color.r, redOverlay.color.g, redOverlay.color.b, intensity);
     }
 }
