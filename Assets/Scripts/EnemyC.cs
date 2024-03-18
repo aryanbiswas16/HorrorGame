@@ -1,131 +1,81 @@
-using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
+using UnityEngine;
 
-public class EnemyFollowC : MonoBehaviour
+public class EnemyC : Enemy
 {
-    public float speed = 5f;
-    public float patrolSpeed = 2f;
-    public float stoppingDistance = 2f;
-    public float followRadius = 10f;
-    public float obstacleDetectionDistance = 2f;
-    public Transform playerTransform;
-    public LayerMask obstacleLayer;
-    public Image redOverlay;
-    public GameObject flashlight;
-    public Transform pointA, pointB; // Patrol points
-    public float detectionAngle = 30f;
-
-    private Vector2 startPosition;
+    public Transform pointA, pointB;
     private Vector2 nextPatrolPoint;
-    private bool isPlayerInRange = false;
-    private Coroutine followDelayCoroutine = null;
-    private Coroutine delayedStopCoroutine = null;
-    private bool isPatrolling = false;
+    private Coroutine patrolCoroutine;
+    private Coroutine delayBeforePatrolCoroutine; // New coroutine variable for handling delay
 
-    void Start()
+    protected override void Start()
     {
-        startPosition = transform.position;
+        base.Start();
         nextPatrolPoint = pointA.position;
-        redOverlay.color = new Color(redOverlay.color.r, redOverlay.color.g, redOverlay.color.b, 0f);
+        // Start patrolling immediately without delay.
+        patrolCoroutine = StartCoroutine(Patrol());
     }
 
-    void Update()
+    protected override void FollowPlayerBehavior()
     {
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
         bool flashlightShiningOnEnemy = IsFlashlightShiningOnEnemy();
 
         if (distanceToPlayer <= followRadius && flashlightShiningOnEnemy && !Physics2D.Raycast(transform.position, playerTransform.position - transform.position, distanceToPlayer, obstacleLayer))
         {
-            isPlayerInRange = true;
-            isPatrolling = false;
-            if (delayedStopCoroutine != null)
+            // When starting to chase the player, stop any existing patrol or delay.
+            if (patrolCoroutine != null)
             {
-                StopCoroutine(delayedStopCoroutine);
-                delayedStopCoroutine = null;
+                StopCoroutine(patrolCoroutine);
+                patrolCoroutine = null;
             }
-            FollowPlayerWithObstacleAvoidance();
+            if (delayBeforePatrolCoroutine != null)
+            {
+                StopCoroutine(delayBeforePatrolCoroutine);
+                delayBeforePatrolCoroutine = null;
+            }
+            isPlayerInRange = true;
+            MoveWithObstacleAvoidance(playerTransform.position - transform.position);
             FaceTarget(playerTransform.position);
         }
-        else if (isPlayerInRange && !flashlightShiningOnEnemy && delayedStopCoroutine == null)
+        else if (isPlayerInRange || patrolCoroutine == null && delayBeforePatrolCoroutine == null)
         {
-            delayedStopCoroutine = StartCoroutine(DelayedStopFollowing());
-        }
-
-        if (!isPlayerInRange && !isPatrolling)
-        {
-            isPatrolling = true;
-            StartCoroutine(Patrol());
-        }
-
-        EnemyUtilities.AdjustRedOverlay(redOverlay, distanceToPlayer, followRadius);
-
-    }
-
-    IEnumerator DelayedStopFollowing()
-    {
-        yield return new WaitForSeconds(3f);
-        isPlayerInRange = false;
-        delayedStopCoroutine = null;
-    }
-
-    private bool IsFlashlightShiningOnEnemy()
-    {
-        Flashlight flashlightScript = flashlight.GetComponent<Flashlight>();
-        if (flashlightScript != null && flashlightScript.isFlashlightOn)
-        {
-            Vector2 directionToEnemy = transform.position - flashlight.transform.position;
-            float angleBetween = Vector2.Angle(flashlight.transform.right, directionToEnemy);
-            return angleBetween <= detectionAngle / 2f;
-        }
-        return false;
-    }
-
-    void FollowPlayerWithObstacleAvoidance()
-    {
-        Vector2 directionToPlayer = (playerTransform.position - transform.position).normalized;
-        MoveWithObstacleAvoidance(directionToPlayer);
-    }
-
-    void MoveWithObstacleAvoidance(Vector2 direction)
-    {
-        Vector2 checkDirection = direction;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, obstacleDetectionDistance, obstacleLayer);
-        if (hit.collider != null)
-        {
-            checkDirection = Quaternion.Euler(0, 0, 45) * direction;
-            hit = Physics2D.Raycast(transform.position, checkDirection, obstacleDetectionDistance, obstacleLayer);
-            if (hit.collider != null)
+            isPlayerInRange = false;
+            if (delayBeforePatrolCoroutine == null)
             {
-                checkDirection = Quaternion.Euler(0, 0, -90) * direction;
+                delayBeforePatrolCoroutine = StartCoroutine(DelayBeforePatrol(2f)); 
             }
         }
-
-        Vector2 targetPosition = Vector2.MoveTowards(transform.position, (Vector2)transform.position + checkDirection, speed * Time.deltaTime);
-        GetComponent<Rigidbody2D>().MovePosition(targetPosition);
-        FaceTarget((Vector2)transform.position + checkDirection);
     }
 
-    void FaceTarget(Vector2 target)
+    IEnumerator DelayBeforePatrol(float delay)
     {
-        Vector2 directionToTarget = target - (Vector2)transform.position;
-        float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg - 90f;
-        transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
+        yield return new WaitForSeconds(delay);
+        if (!isPlayerInRange)
+        {
+            patrolCoroutine = StartCoroutine(Patrol());
+        }
+        delayBeforePatrolCoroutine = null; // Reset the delay handle after the delay has passed and patrol started.
     }
 
     IEnumerator Patrol()
     {
-        while (isPatrolling)
+        while (true) // Infinite loop for patrolling
         {
-            MoveWithObstacleAvoidance(nextPatrolPoint - (Vector2)transform.position);
-            FaceTarget(nextPatrolPoint);
-
             if (Vector2.Distance(transform.position, nextPatrolPoint) < stoppingDistance)
             {
+                // Switch the patrol point
                 nextPatrolPoint = nextPatrolPoint == (Vector2)pointA.position ? pointB.position : pointA.position;
+                // Add a slight pause at each patrol point for realism.
+                yield return new WaitForSeconds(1f);
             }
+            MoveWithObstacleAvoidance(nextPatrolPoint - (Vector2)transform.position);
+            FaceTarget(nextPatrolPoint);
             yield return null;
         }
     }
 
+    protected override void ReturnToStartOrPatrol()
+    {
+    }
 }

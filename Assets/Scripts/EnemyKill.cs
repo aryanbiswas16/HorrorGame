@@ -6,10 +6,10 @@ using System.Collections;
 
 public class GameOverTrigger : MonoBehaviour
 {
-    public GameObject gameOverSign; // Assign this in the inspector with your Game Over UI element
+    public GameObject gameOverSign; 
     private bool isPlayerInContact = false;
-    private float contactTime = 1.0f; // Duration the player must stay in contact to trigger game over
-
+    private float contactTime = 2.0f; 
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -33,11 +33,7 @@ public class GameOverTrigger : MonoBehaviour
 
         if (isPlayerInContact)
         {
-            gameOverSign.SetActive(true); // Show the Game Over sign
-            // Here you can also handle anything else you want to do when the game is over, such as:
-            // SceneManager.LoadScene("YourGameOverSceneName"); // Load a Game Over scene
-            // OR
-            // Time.timeScale = 0; // Freeze the game
+            gameOverSign.SetActive(true); 
         }
     }
 }
