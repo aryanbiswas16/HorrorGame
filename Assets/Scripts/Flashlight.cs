@@ -11,7 +11,7 @@ public class Flashlight : MonoBehaviour
 
     public float batteryLife = 5f; // Total battery life in seconds
     private float currentBatteryLife;
-    private bool isFlashlightOn = false;
+    public bool isFlashlightOn = false;
 
     // Reference to the UI Text or TextMeshPro component
     public TextMeshProUGUI batteryLifeText; // For TextMeshPro

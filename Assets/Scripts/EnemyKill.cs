@@ -8,7 +8,7 @@ public class GameOverTrigger : MonoBehaviour
 {
     public GameObject gameOverSign; // Assign this in the inspector with your Game Over UI element
     private bool isPlayerInContact = false;
-    private float contactTime = 1.0f; // Duration the player must stay in contact to trigger game over
+    private float contactTime = 2.0f; // Duration the player must stay in contact to trigger game over
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
