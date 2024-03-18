@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Teleport : MonoBehaviour
 {
+        public ActivateChaseScript chaseScript; // Assign this via the Inspector
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -15,6 +17,7 @@ public class Teleport : MonoBehaviour
             {
                 // Set the player's position to the Spawn object's position
                 other.transform.position = spawnPoint.transform.position;
+                chaseScript.StopFlashingLight();
                 // Optionally, add any animations or effects associated with teleportation
             }
             else
@@ -23,4 +26,8 @@ public class Teleport : MonoBehaviour
             }
         }
     }
+
+
+    
 }
+
