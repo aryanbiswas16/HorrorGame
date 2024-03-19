@@ -27,14 +27,16 @@ public abstract class Enemy : MonoBehaviour
     {
         startPosition = transform.position;
         redOverlay.color = new Color(redOverlay.color.r, redOverlay.color.g, redOverlay.color.b, 0);
+
     }
 
     protected virtual void Update()
     {
+        
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
         isPlayerInRange = distanceToPlayer <= followRadius; // Or any other logic defining 'in range'
         FollowPlayerBehavior();
-        AdjustRedOverlay(distanceToPlayer);
+        AdjustRedOverlay(2f+ distanceToPlayer);
         if (!isPlayerInRange) ReturnToStartOrPatrol();
         UpdateEnemyIndicators();
         DuplicateIndicatorForNearbyEnemies();

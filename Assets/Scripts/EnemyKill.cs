@@ -8,7 +8,7 @@ public class GameOverTrigger : MonoBehaviour
 {
     public GameObject gameOverSign; 
     private bool isPlayerInContact = false;
-    private float contactTime = 2.0f; 
+    private float contactTime = 0.75f; 
     
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -29,7 +29,7 @@ public class EnemyA : Enemy
                     // If the flashlight is no longer shining and the coroutine hasn't started, begin the lose interest delay
                     if (loseInterestCoroutine == null)
                     {
-                        loseInterestCoroutine = StartCoroutine(LoseInterestAfterDelay(3f));
+                        loseInterestCoroutine = StartCoroutine(LoseInterestAfterDelay(1.5f));
                     }
                 }
                 else

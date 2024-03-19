@@ -6,14 +6,21 @@ public class EnemyC : Enemy
     public Transform pointA, pointB;
     private Vector2 nextPatrolPoint;
     private Coroutine patrolCoroutine;
-    private Coroutine delayBeforePatrolCoroutine; // New coroutine variable for handling delay
+    private Coroutine delayBeforePatrolCoroutine;
+    private enum State { Patrolling, Chasing, Waiting }
+    private State currentState;
 
     protected override void Start()
     {
         base.Start();
-        nextPatrolPoint = pointA.position;
-        // Start patrolling immediately without delay.
-        patrolCoroutine = StartCoroutine(Patrol());
+        ChangeState(State.Patrolling);
+        nextPatrolPoint = pointB.position;
+
+    }
+
+    protected override void Update()
+    {
+        base.Update();
     }
 
     protected override void FollowPlayerBehavior()
@@ -23,59 +30,86 @@ public class EnemyC : Enemy
 
         if (distanceToPlayer <= followRadius && flashlightShiningOnEnemy && !Physics2D.Raycast(transform.position, playerTransform.position - transform.position, distanceToPlayer, obstacleLayer))
         {
-            // When starting to chase the player, stop any existing patrol or delay.
-            if (patrolCoroutine != null)
+            if (currentState != State.Chasing)
             {
-                StopCoroutine(patrolCoroutine);
-                patrolCoroutine = null;
+                ChangeState(State.Chasing);
             }
-            if (delayBeforePatrolCoroutine != null)
-            {
-                StopCoroutine(delayBeforePatrolCoroutine);
-                delayBeforePatrolCoroutine = null;
-            }
-            isPlayerInRange = true;
             MoveWithObstacleAvoidance(playerTransform.position - transform.position);
             FaceTarget(playerTransform.position);
         }
-        else if (isPlayerInRange || patrolCoroutine == null && delayBeforePatrolCoroutine == null)
+        else if (currentState == State.Chasing)
         {
-            isPlayerInRange = false;
-            if (delayBeforePatrolCoroutine == null)
-            {
-                delayBeforePatrolCoroutine = StartCoroutine(DelayBeforePatrol(2f)); 
-            }
+            ChangeState(State.Waiting);
+        }
+
+    }
+
+    private void ChangeState(State newState)
+    {
+        
+
+        switch (currentState)
+        {
+            case State.Patrolling:
+                if (patrolCoroutine != null)
+                {
+                    StopCoroutine(patrolCoroutine);
+                }
+                break;
+            case State.Waiting:
+                if (delayBeforePatrolCoroutine != null)
+                {
+                    StopCoroutine(delayBeforePatrolCoroutine);
+                }
+                break;
+        }
+
+        currentState = newState;
+
+        switch (currentState)
+        {
+            case State.Patrolling:
+                patrolCoroutine = StartCoroutine(Patrol());
+                break;
+            case State.Waiting:
+                delayBeforePatrolCoroutine = StartCoroutine(DelayBeforePatrol(2f));
+                break;
         }
     }
 
     IEnumerator DelayBeforePatrol(float delay)
     {
         yield return new WaitForSeconds(delay);
-        if (!isPlayerInRange)
+        if (currentState == State.Waiting)
         {
-            patrolCoroutine = StartCoroutine(Patrol());
+            ChangeState(State.Patrolling);
         }
-        delayBeforePatrolCoroutine = null; // Reset the delay handle after the delay has passed and patrol started.
     }
 
     IEnumerator Patrol()
     {
-        while (true) // Infinite loop for patrolling
+        while (true)
         {
             if (Vector2.Distance(transform.position, nextPatrolPoint) < stoppingDistance)
             {
-                // Switch the patrol point
                 nextPatrolPoint = nextPatrolPoint == (Vector2)pointA.position ? pointB.position : pointA.position;
-                // Add a slight pause at each patrol point for realism.
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(1f); // Wait time at each patrol point
             }
-            MoveWithObstacleAvoidance(nextPatrolPoint - (Vector2)transform.position);
-            FaceTarget(nextPatrolPoint);
-            yield return null;
+            else
+            {
+                MoveWithObstacleAvoidance(nextPatrolPoint - (Vector2)transform.position);
+                FaceTarget(nextPatrolPoint);
+                yield return null;
+            }
         }
     }
 
     protected override void ReturnToStartOrPatrol()
     {
+        // This might be called if specific logic requires the enemy to return to a start point or resume patrolling.
+        if (!isPlayerInRange && currentState != State.Patrolling)
+        {
+            ChangeState(State.Patrolling);
+        }
     }
 }
