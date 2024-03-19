@@ -32,7 +32,6 @@ public class EnemyB : Enemy
             }
         }
 
-        AdjustRedOverlay(distanceToPlayer);
     }
 
     IEnumerator DelayedStopFollowing()

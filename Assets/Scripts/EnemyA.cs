@@ -48,7 +48,6 @@ public class EnemyA : Enemy
             StopFollowingPlayer();
         }
 
-        AdjustRedOverlay(distanceToPlayer);
     }
 
     IEnumerator LoseInterestAfterDelay(float delay)

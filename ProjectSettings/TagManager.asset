@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ActivateChase
   - GlobalLight
+  - Enemy
   layers:
   - Default
   - TransparentFX
