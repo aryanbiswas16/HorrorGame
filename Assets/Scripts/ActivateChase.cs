@@ -50,7 +50,8 @@ public class ActivateChaseScript : MonoBehaviour
         globalLight.color = Color.red;
 
         while (!stopFlashing)
-        {
+        {   
+            globalLight.color = Color.red;
             globalLight.intensity = 0f; // Light off
             yield return new WaitForSeconds(0.3f);
             globalLight.intensity = 1f; // Light on (adjust intensity as needed)
