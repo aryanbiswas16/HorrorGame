@@ -7,6 +7,9 @@ public class Flashlight : MonoBehaviour
     [SerializeField]
     private GameObject _gameObject; // The light GameObject
 
+    [SerializeField]
+    private FlashlightSequence flashlightSequence; // Add this line
+
     public float batteryLifeInSeconds = 100f; // Adjust to fit the equivalent of 30% starting charge
     private float currentBatteryLife;
     public bool isFlashlightOn = false;
@@ -43,13 +46,8 @@ public class Flashlight : MonoBehaviour
         // Start flickering without affecting the flashlight state, unless the battery is dead
         if (Input.GetKeyDown(KeyCode.F) && flickerRoutine == null && currentBatteryLife > 0)
         {
-            flickerRoutine = StartCoroutine(FlickerEffect());
-        }
-
-        // Stop flickering with G
-        if (Input.GetKeyDown(KeyCode.G) && flickerRoutine != null)
-        {
-            StopFlicker();
+            //flickerRoutine = StartCoroutine(FlickerEffect());
+            StartFlickering();
         }
     }
 
@@ -80,42 +78,65 @@ public class Flashlight : MonoBehaviour
     }
 
     IEnumerator FlickerEffect()
-    {
-        float singleFlickerDuration = 0.1f;
-        bool initiallyOn = isFlashlightOn;
+{
+    // Ensure the light is on for logic checks, but visually flickers
+    isFlashlightOn = true; // The light is logically on, even if visually flickering
+    bool initiallyOn = _gameObject.activeSelf; // Remember the initial state
 
-        while (true) // Continue flickering indefinitely
+    // Turn on the light before flickering for visual consistency
+    _gameObject.SetActive(true);
+
+    while (true) // Continue flickering indefinitely
+    {
+        // Flicker the light by turning it off and on visually
+        _gameObject.SetActive(!_gameObject.activeSelf);
+
+        // Still deplete battery during flicker
+        if (initiallyOn)
         {
-            // Only deplete battery faster if the light was initially on
-            if (initiallyOn)
+            DepleteBattery(Time.deltaTime * 2); // Deplete faster during flicker if it was initially on
+            if (currentBatteryLife <= 0) // Stop flickering if the battery dies
             {
-                DepleteBattery(Time.deltaTime * 2); // Example: deplete slightly faster during flicker
-                if (currentBatteryLife <= 0) // Stop flickering if the battery dies
-                {
-                    StopFlicker();
-                    yield break;
-                }
+                StopFlicker();
+                yield break;
             }
-
-            _gameObject.SetActive(!_gameObject.activeSelf); // Toggle light for flicker
-            yield return new WaitForSeconds(singleFlickerDuration);
         }
-    }
 
-    public void StopFlicker()
+        yield return new WaitForSeconds(0.1f); // Control the flicker speed
+    }
+}
+
+public void StopFlicker()
+{
+    if (flickerRoutine != null)
     {
-        if (flickerRoutine != null)
-        {
-            StopCoroutine(flickerRoutine);
-            flickerRoutine = null;
-            _gameObject.SetActive(isFlashlightOn); // Restore light to its correct state
-        }   
-    }
+        StopCoroutine(flickerRoutine);
+        flickerRoutine = null;
 
+        // Restore the initial state of the flashlight
+        _gameObject.SetActive(isFlashlightOn);
+    }
+}
 
     void TurnOffLight()
     {
         isFlashlightOn = false;
         _gameObject.SetActive(false);
     }
+
+    public bool IsFlickering() {
+        return flickerRoutine != null; // If flickerRoutine is active, the flashlight is flickering
+    }
+
+    public void StartFlickering()
+    {
+        if (flickerRoutine == null)
+        {
+            flickerRoutine = StartCoroutine(FlickerEffect());
+            // Assuming flashlightSequence is a reference to the FlashlightSequence script
+            flashlightSequence.OnFlickeringStarted();
+        }
+    }
+
+
 }
