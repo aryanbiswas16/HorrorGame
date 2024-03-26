@@ -18,6 +18,8 @@ public class Flashlight : MonoBehaviour
 
     private Coroutine flickerRoutine; // For tracking the flicker coroutine
 
+    public bool flickering = false;
+
     void Start()
     {
         // Assuming 100 seconds of battery life equals 30% charge display
@@ -106,17 +108,19 @@ public class Flashlight : MonoBehaviour
     }
 }
 
-public void StopFlicker()
-{
-    if (flickerRoutine != null)
+    public void StopFlicker()
     {
-        StopCoroutine(flickerRoutine);
-        flickerRoutine = null;
-
-        // Restore the initial state of the flashlight
-        _gameObject.SetActive(isFlashlightOn);
+        if (flickerRoutine != null)
+        {
+            StopCoroutine(flickerRoutine);
+            flickerRoutine = null;
+            flickering = false; // Update flickering state
+            // Restore the initial state of the flashlight
+            _gameObject.SetActive(isFlashlightOn);
+        }
     }
-}
+
+
 
     void TurnOffLight()
     {
@@ -124,14 +128,27 @@ public void StopFlicker()
         _gameObject.SetActive(false);
     }
 
-    public bool IsFlickering() {
-        return flickerRoutine != null; // If flickerRoutine is active, the flashlight is flickering
-    }
+    //public bool IsFlickering() {
+    //    return flickerRoutine != null; // If flickerRoutine is active, the flashlight is flickering
+    //}
+
+    public bool IsFlickering() => flickering;
+
+    //public void StartFlickering()
+    //{
+    //    if (flickerRoutine == null)
+    //    {
+    //        flickerRoutine = StartCoroutine(FlickerEffect());
+            // Assuming flashlightSequence is a reference to the FlashlightSequence script
+    //        flashlightSequence.OnFlickeringStarted();
+    //    }
+    //}
 
     public void StartFlickering()
     {
-        if (flickerRoutine == null)
+        if (!flickering)
         {
+            flickering = true;
             flickerRoutine = StartCoroutine(FlickerEffect());
             // Assuming flashlightSequence is a reference to the FlashlightSequence script
             flashlightSequence.OnFlickeringStarted();

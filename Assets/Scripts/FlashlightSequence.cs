@@ -8,7 +8,7 @@ public class FlashlightSequence : MonoBehaviour
 {
     public TextMeshProUGUI sequenceDisplay;
     public Flashlight flashlight;
-    private KeyCode[] keySequence = { KeyCode.P, KeyCode.O, KeyCode.I };
+    private KeyCode[] keySequence = {KeyCode.P, KeyCode.O, KeyCode.I};
     private int currentIndex = 0;
     private bool isSequenceActive = false;
 
@@ -32,7 +32,7 @@ public class FlashlightSequence : MonoBehaviour
             if (Input.GetKeyDown(keySequence[currentIndex]))
             //Debug.Log(isSequenceActive);
             //Debug.Log(currentIndex);
-            Debug.Log("Key pressed");
+            //Debug.Log("Key pressed");
             {
                 currentIndex++;
                 if (currentIndex >= keySequence.Length)
