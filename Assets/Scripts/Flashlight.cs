@@ -11,7 +11,7 @@ public class Flashlight : MonoBehaviour
 
     public float batteryLife = 5f; // Total battery life in seconds
     private float currentBatteryLife;
-    private bool isFlashlightOn = false;
+    public bool isFlashlightOn = false;
 
     // Reference to the UI Text or TextMeshPro component
     public TextMeshProUGUI batteryLifeText; // For TextMeshPro
@@ -71,12 +71,19 @@ public class Flashlight : MonoBehaviour
         _gameObject.SetActive(false);
     }
 
-    // Update the UI with the current battery life
     void UpdateBatteryLifeUI()
     {
         if (batteryLifeText != null)
         {
-            batteryLifeText.text = "Battery: " + Mathf.CeilToInt(currentBatteryLife).ToString() + "%";
+            float batteryPercentage = (currentBatteryLife / batteryLife) * 100;
+            batteryLifeText.text = Mathf.RoundToInt(batteryPercentage).ToString() + "%";
         }
+    }
+
+    // Public method to increase battery life by 5 seconds
+    public void IncreaseBatteryLife()
+    {
+        currentBatteryLife = Mathf.Min(currentBatteryLife + 5, batteryLife);
+        UpdateBatteryLifeUI(); // Update the UI to reflect the new battery life
     }
 }
