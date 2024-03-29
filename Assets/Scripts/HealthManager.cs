@@ -2,33 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement; // Needed for loading scenes, if using scenes for game over
 
 public class HealthManager : MonoBehaviour
 {
     public int health = 3;
-
     public Image[] hearts;
 
-    void Awake(){
+    public GameObject gameOverSign;
+    void Awake()
+    {
         health = 3;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Loop through all hearts
         for (int i = 0; i < hearts.Length; i++)
         {
-            // If the current index is less than the health value, the heart should be visible
             if (i < health)
             {
                 hearts[i].enabled = true;
             }
             else
             {
-                // If the current index is greater than or equal to the health value, disable the heart
                 hearts[i].enabled = false;
             }
         }
+    }
+
+    public void RemoveHeart()
+    {
+        health = Mathf.Max(0, health - 1);
+
+        // Check if health is 0 and trigger game over
+        if (health == 0)
+        {
+            GameOver();
+        }
+    }
+
+    void GameOver()
+    {
+        // Logic for what happens when the game is over
+        // For example, loading a game over scene, displaying a game over screen, etc.
+        gameOverSign.SetActive(true); // Placeholder action
+
+        // Example: Load a scene named "GameOver"
+        // Make sure "GameOver" scene is added in your Build Settings scene list
+        // SceneManager.LoadScene("GameOver");
     }
 }
