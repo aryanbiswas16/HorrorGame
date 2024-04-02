@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
          key_left = false,
          key_right = false;
 
-    float moveSpeed = 4;
+    float moveSpeed = 3;
 
     BoxCollider2D boxCollider;
 
