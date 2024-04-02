@@ -8,8 +8,15 @@ public class GameOverTrigger : MonoBehaviour
 {
     public GameObject gameOverSign; 
     private bool isPlayerInContact = false;
-    private float contactTime = 0.75f; 
-    
+    private float contactTime = 0.75f;
+
+    private SoundFXManager soundFXManager;
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        soundFXManager = SoundFXManager.GetInstance();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -33,6 +40,15 @@ public class GameOverTrigger : MonoBehaviour
 
         if (isPlayerInContact)
         {
+            AudioClip deathSound = Resources.Load<AudioClip>("Sounds/Clips/Instant-Death");
+            if (deathSound == null)
+            {
+                Debug.LogError("Sound file not found");
+            }else
+            {
+                soundFXManager.Play(deathSound);
+            }
+            
             gameOverSign.SetActive(true); 
         }
     }

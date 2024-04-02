@@ -3,7 +3,10 @@ guid: c605b48c1fa9ab54e8d9b357aee16152
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _gameObject: {instanceID: 0}
+  - switchSound: {fileID: 8300000, guid: 40f5b7c3c57892847a999953296ce301, type: 3}
+  - batteryLifeText: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

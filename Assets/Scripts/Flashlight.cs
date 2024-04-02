@@ -6,12 +6,15 @@ using TMPro; // Add this if using TextMeshPro
 public class Flashlight : MonoBehaviour
 {
     private bool LightSwitch;
-    [SerializeField]
-    private GameObject _gameObject;
+    [SerializeField] private GameObject _gameObject;
+
 
     public float batteryLife = 5f; // Total battery life in seconds
     private float currentBatteryLife;
     public bool isFlashlightOn = false;
+
+ 
+    private SoundFXManager soundFXManager;
 
     // Reference to the UI Text or TextMeshPro component
     public TextMeshProUGUI batteryLifeText; // For TextMeshPro
@@ -19,6 +22,7 @@ public class Flashlight : MonoBehaviour
 
     void Start()
     {
+        soundFXManager = SoundFXManager.GetInstance();
         currentBatteryLife = batteryLife;
         _gameObject.SetActive(false);
         UpdateBatteryLifeUI();
@@ -50,6 +54,8 @@ public class Flashlight : MonoBehaviour
     void ToggleFlashlight()
     {
         isFlashlightOn = !isFlashlightOn;
+        AudioClip switchSound = Resources.Load<AudioClip>("Sounds/Clips/Light-Switch");
+        soundFXManager.Play(switchSound);
 
         if (isFlashlightOn)
         {
