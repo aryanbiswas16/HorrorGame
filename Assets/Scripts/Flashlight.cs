@@ -81,7 +81,7 @@ public class Flashlight : MonoBehaviour
     {
         if (batteryLifeText != null)
         {
-            float batteryPercentage = (currentBatteryLife / batteryLife) * 100;
+            float batteryPercentage = (currentBatteryLife / batteryLife) * 30;
             batteryLifeText.text = Mathf.RoundToInt(batteryPercentage).ToString() + "%";
         }
     }
