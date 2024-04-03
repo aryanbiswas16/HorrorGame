@@ -20,6 +20,7 @@ public class MonsterChase : MonoBehaviour
         {
             // If the monster collides with the player, activate the game over sign and potentially stop the game
             gameOverSign.SetActive(true);
+            Time.timeScale = 0;
             // Here you can add any additional game over logic, such as freezing the game or displaying a restart button
         }
         // Optionally, handle what happens if the monster reaches the TeleportLine without catching the player
