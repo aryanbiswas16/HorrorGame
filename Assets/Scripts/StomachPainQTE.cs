@@ -27,7 +27,7 @@ public class StomachPainQTE : MonoBehaviour
         if (qteRunning && Input.GetKeyDown(KeyCode.Space))
         {
             AudioClip fart = Resources.Load<AudioClip>("Sounds/Clips/Fart");
-            soundFXManager.Play(fart, 0.6f);
+            soundFXManager.Play(fart, 0.05f);
 
             IncreaseSpeed();
         }
