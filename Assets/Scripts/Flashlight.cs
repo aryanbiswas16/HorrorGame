@@ -55,7 +55,7 @@ public class Flashlight : MonoBehaviour
     {
         isFlashlightOn = !isFlashlightOn;
         AudioClip switchSound = Resources.Load<AudioClip>("Sounds/Clips/Light-Switch");
-        soundFXManager.Play(switchSound);
+        soundFXManager.Play(switchSound, 0.5f);
 
         if (isFlashlightOn)
         {

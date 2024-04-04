@@ -10,16 +10,19 @@ public class EnemyB : Enemy
     {
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
         bool flashlightShiningOnEnemy = IsFlashlightShiningOnEnemy();
+        AudioClip attackSound = Resources.Load<AudioClip>("Sounds/Clips/Zombie-growl");
 
         if (distanceToPlayer <= followRadius && !Physics2D.Raycast(transform.position, playerTransform.position - transform.position, distanceToPlayer, obstacleLayer))
         {
             if (flashlightShiningOnEnemy)
             {
+                
                 recentlyIlluminated = true;
                 isPlayerInRange = true;
                 // Reset the delayed stop coroutine
                 if (delayedStopCoroutine != null)
                 {
+                    soundFXManager.Play(attackSound, 0.1f);
                     StopCoroutine(delayedStopCoroutine);
                     delayedStopCoroutine = null;
                 }

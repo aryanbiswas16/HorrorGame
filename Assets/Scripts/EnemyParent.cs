@@ -14,6 +14,8 @@ public abstract class Enemy : MonoBehaviour
     public Image redOverlay;
     public GameObject flashlight;
     public float detectionAngle = 30f;
+    public SoundFXManager soundFXManager;
+
 
     protected Vector2 startPosition;
     protected bool isPlayerInRange = false;
@@ -27,7 +29,7 @@ public abstract class Enemy : MonoBehaviour
     {
         startPosition = transform.position;
         redOverlay.color = new Color(redOverlay.color.r, redOverlay.color.g, redOverlay.color.b, 0);
-
+        soundFXManager = SoundFXManager.GetInstance();
     }
 
     protected virtual void Update()

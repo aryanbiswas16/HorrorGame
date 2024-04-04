@@ -33,8 +33,6 @@ public class Player : MonoBehaviour
         key_left = Input.GetKey(KeyCode.A);
         key_right = Input.GetKey(KeyCode.D);
 
-        
-
         //Movement calculation
         float hSpeed = (key_right ? 1 : 0) - (key_left ? 1 : 0);
         float vSpeed = (key_up ? 1 : 0) - (key_down ? 1 : 0);
@@ -42,18 +40,17 @@ public class Player : MonoBehaviour
         vSpeed = vSpeed * moveSpeed * Time.deltaTime;
         Vector3 pos = transform.position;
 
+        //footstep sounds
         if (hSpeed != 0 || vSpeed != 0)
         {
             stepTimer += Time.deltaTime;
             
             if (stepTimer >= stepInterval)
             {
-                soundFXManager.Play(stepSound);
-                stepTimer = 0f; // Reset the timer
+                soundFXManager.Play(stepSound, 1f);
+                stepTimer = 0f; 
             }
         }
-
-
 
         //Horizontal Collision Check
         if (Physics2D.OverlapBox(new Vector2(pos.x + hSpeed, pos.y), boxCollider.size, 0, LayerMask.GetMask("Wall")))
