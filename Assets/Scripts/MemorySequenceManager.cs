@@ -6,6 +6,7 @@ using TMPro;
 
 public class MemorySequenceManager : MonoBehaviour
 {   
+
     public GameObject sequencePanel; // Panel to show/hide the sequence UI
     public Button[] sequenceButtons; // Buttons to use for the sequence
     public DoorController doorController;
@@ -41,7 +42,7 @@ private void EnablePlayer()
 }
     private void Start()
     {   
-
+     
         sequencePanel.SetActive(false);
         feedbackText.text = ""; // Ensure feedback text is clear at start
     }
@@ -124,6 +125,7 @@ public void StartSequence()
                 sequencePanel.SetActive(false);
                 feedbackText.text = "Correct!";
                 EnablePlayer(); // Re-enable movement on success
+
             }
         }
         else

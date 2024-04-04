@@ -70,7 +70,6 @@ private void OnTriggerEnter2D(Collider2D collider)
         healthBarUI.gameObject.SetActive(false);
         FinishLineScript.StopFlashingLight();
         FinishLineScript.bossMusic.Stop();
-        FinishLineScript.globalLight.intensity = 1f;
         FinishLineScript.audioSource.Play();
 
     }

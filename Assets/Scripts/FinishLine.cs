@@ -16,7 +16,7 @@ public class FinishLine : MonoBehaviour
     public AudioSource audioSource; 
 
 
-    public UnityEngine.Rendering.Universal.Light2D globalLight; // For direct manipulation of the Light 2D component
+    private UnityEngine.Rendering.Universal.Light2D globalLight; // For direct manipulation of the Light 2D component
 
   private void OnTriggerEnter2D(Collider2D other)
     {
@@ -69,7 +69,7 @@ public class FinishLine : MonoBehaviour
         // Optionally, ensure the light has a specific intensity when stopping
         if (globalLight != null)
         {
-            globalLight.intensity = 0f; // Adjust to desired intensity
+            globalLight.intensity = 1f; // Adjust to desired intensity
         }
     }
 
@@ -89,7 +89,7 @@ public class FinishLine : MonoBehaviour
         }
 
         // Ensure the light has a specific intensity when stopping the flashing
-        globalLight.intensity = 0f; // Adjust to default or desired intensity
+        globalLight.intensity = 1f; // Adjust to default or desired intensity
         globalLight.color = Color.white;
     }
 
