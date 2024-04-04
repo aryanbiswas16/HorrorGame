@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
          key_right = false;
 
     public float moveSpeed = 3;
+     public bool canMove = true;
 
     private SoundFXManager soundFXManager;
     float stepInterval = 0.3f;
@@ -27,6 +28,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (canMove)
+        {
+     
         AudioClip stepSound = Resources.Load<AudioClip>("Sounds/Clips/Player-footstep");
         key_up = Input.GetKey(KeyCode.W);
         key_down = Input.GetKey(KeyCode.S);
@@ -67,5 +71,6 @@ public class Player : MonoBehaviour
         Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         float lookAngle = Mathf.Atan2(mouseWorldPosition.y - transform.position.y, mouseWorldPosition.x - transform.position.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(lookAngle, Vector3.forward);
+    }
     }
 }
