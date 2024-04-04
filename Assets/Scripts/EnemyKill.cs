@@ -50,6 +50,7 @@ public class GameOverTrigger : MonoBehaviour
             }
             
             gameOverSign.SetActive(true); 
+            Time.timeScale = 0;
         }
     }
 }

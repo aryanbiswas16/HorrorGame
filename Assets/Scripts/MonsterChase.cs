@@ -28,6 +28,7 @@ public class MonsterChase : MonoBehaviour
             AudioClip deathSound = Resources.Load<AudioClip>("Sounds/Clips/Instant-Death");
             soundFXManager.Play(deathSound, 1f);
             gameOverSign.SetActive(true);
+            Time.timeScale = 0;
             // Here you can add any additional game over logic, such as freezing the game or displaying a restart button
         }
         // Optionally, handle what happens if the monster reaches the TeleportLine without catching the player
