@@ -17,7 +17,6 @@ public class QTEHandler : MonoBehaviour
     {
         while (true)
         {
-            // Wait for a random time between 30 to 60 seconds
             yield return new WaitForSeconds(Random.Range(20f, 25f));
 
             // Deactivate all QTEs first
