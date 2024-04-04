@@ -2,13 +2,14 @@ using UnityEngine;
 
 public class DamageDealer : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+private void OnTriggerEnter2D(Collider2D other)
+{
+    Debug.Log("Triggered with: " + other.name);
+    if (other.CompareTag("Boss"))
     {
-        // Check if the collided object is the Boss
-        if (collision.gameObject.CompareTag("Boss"))
-        {
-            // Optionally, you can add a line here to deal damage to the boss if not handled by the boss's script.
-            Destroy(gameObject); // Destroy the sprite upon collision
-        }
+        Debug.Log("Boss hit!");
+        Destroy(gameObject);
     }
+}
+
 }

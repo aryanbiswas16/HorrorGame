@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class FinishLine : MonoBehaviour
 {
-    public ActivateChaseScript chaseScript; // Assign this via the Inspector
+
     public GameObject bossGameObject; // Assign in Inspector
     public GameObject bossHealthBarUI; // Assign in Inspector
     public AudioSource bossMusic; // Assign in Inspector
@@ -38,7 +38,6 @@ public class FinishLine : MonoBehaviour
       
             bossGameObject.SetActive(true); // Activate the boss character
             bossHealthBarUI.SetActive(true); // Show the boss's health bar UI
-            bossMusic.Play(); // Start playing the boss music or sound effects
         
     }
 
