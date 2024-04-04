@@ -27,11 +27,11 @@ public class BalanceGameController : MonoBehaviour
         float input = 0f; // The input value to change the balance
 
         // Get input from the left and right arrows
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.Q))
         {
             input = -balanceSpeed * Time.deltaTime;
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.E))
         {
             input = balanceSpeed * Time.deltaTime;
         }
@@ -62,7 +62,7 @@ public class BalanceGameController : MonoBehaviour
         gameActive = false; // Set the game as inactive
 
         // Check the slider value to determine if a heart should be removed
-        if (balanceSlider.value < 0.40f || balanceSlider.value > 0.50f)
+        if (balanceSlider.value < 0.40f || balanceSlider.value > 0.60f)
         {
             healthManager?.RemoveHeart(); // Remove a heart if the health manager exists and condition is met
         }
