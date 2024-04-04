@@ -81,7 +81,7 @@ public class Flashlight : MonoBehaviour
     {
         if (batteryLifeText != null)
         {
-            float batteryPercentage = (currentBatteryLife / batteryLife) * 30;
+            float batteryPercentage = (currentBatteryLife / batteryLife) * 100;
             batteryLifeText.text = Mathf.RoundToInt(batteryPercentage).ToString() + "%";
         }
     }
@@ -89,7 +89,7 @@ public class Flashlight : MonoBehaviour
     // Public method to increase battery life by 5 seconds
     public void IncreaseBatteryLife()
     {
-        currentBatteryLife = Mathf.Min(currentBatteryLife + 5, batteryLife);
+        currentBatteryLife = Mathf.Min(currentBatteryLife + 20, batteryLife);
         UpdateBatteryLifeUI(); // Update the UI to reflect the new battery life
     }
 }
