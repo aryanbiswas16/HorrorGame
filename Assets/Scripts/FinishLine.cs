@@ -83,9 +83,9 @@ public class FinishLine : MonoBehaviour
         {   
             globalLight.color = Color.red;
             globalLight.intensity = 0f; // Light off
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0f);
             globalLight.intensity = 1f; // Light on (adjust intensity as needed)
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(1f);
         }
 
         // Ensure the light has a specific intensity when stopping the flashing
