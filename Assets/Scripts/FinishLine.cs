@@ -10,6 +10,7 @@ public class FinishLine : MonoBehaviour
     public GameObject bossGameObject; // Assign in Inspector
     public GameObject bossHealthBarUI; // Assign in Inspector
     public GameObject SpawnLocation;
+    public GameObject QTEHandler;
     public AudioSource bossMusic; // Assign in Inspector
     public GameObject globalLightGameObject; // Assign the global light GameObject in the inspector
 
@@ -54,7 +55,7 @@ public class FinishLine : MonoBehaviour
         return;
     }
 
-       
+            QTEHandler.SetActive(false);
             bossGameObject.SetActive(true); // Activate the boss character
             bossHealthBarUI.SetActive(true); // Show the boss's health bar UI
             SpawnLocation.SetActive(true);
