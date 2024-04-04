@@ -4,6 +4,9 @@ using UnityEngine.Rendering.Universal; // Update this based on your Unity versio
 
 public class SimulateLightning : MonoBehaviour
 {
+    public SoundFXManager soundFXManager;
+    
+    
     private Light2D globalLight; // Reference to the Light2D component on this GameObject
     public Color lightningColor = Color.red; // The color of the lightning
     public float minFlashDelay = 5f; // Minimum delay between flashes
@@ -33,6 +36,7 @@ public class SimulateLightning : MonoBehaviour
 
     private void Start()
     {
+        soundFXManager = SoundFXManager.GetInstance();
         // Start the lightning effect coroutine
         StartCoroutine(LightningEffect());
     }
@@ -48,6 +52,8 @@ public class SimulateLightning : MonoBehaviour
             globalLight.color = lightningColor;
             globalLight.intensity = 1f; // Set to desired max intensity during flash
 
+            AudioClip attackSound = Resources.Load<AudioClip>("Sounds/Clips/Lighting-strike");
+            soundFXManager.Play(attackSound, 0.1f);
             // Wait for the duration of the lightning effect
             yield return new WaitForSeconds(lightningDuration);
 
