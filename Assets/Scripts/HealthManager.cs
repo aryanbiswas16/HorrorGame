@@ -46,7 +46,6 @@ public class HealthManager : MonoBehaviour
         // Logic for what happens when the game is over
         // For example, loading a game over scene, displaying a game over screen, etc.
         gameOverSign.SetActive(true);
-        Time.timeScale = 0;
 
         // Example: Load a scene named "GameOver"
         // Make sure "GameOver" scene is added in your Build Settings scene list
