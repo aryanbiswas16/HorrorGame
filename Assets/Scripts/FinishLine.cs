@@ -16,7 +16,7 @@ public class FinishLine : MonoBehaviour
     public AudioSource audioSource; 
 
 
-    private UnityEngine.Rendering.Universal.Light2D globalLight; // For direct manipulation of the Light 2D component
+    public UnityEngine.Rendering.Universal.Light2D globalLight; // For direct manipulation of the Light 2D component
 
   private void OnTriggerEnter2D(Collider2D other)
     {
@@ -55,8 +55,9 @@ public class FinishLine : MonoBehaviour
             bossGameObject.SetActive(true); // Activate the boss character
             bossHealthBarUI.SetActive(true); // Show the boss's health bar UI
             SpawnLocation.SetActive(true);
+            bossMusic.Play();
 
-             StartCoroutine(FlashLight()); // Start the light flashing coroutine
+            StartCoroutine(FlashLight()); // Start the light flashing coroutine
         
     } 
 
@@ -65,7 +66,6 @@ public class FinishLine : MonoBehaviour
     public void StopFlashingLight()
     {
         stopFlashing = true;
-        audioSource.Stop();
         // Optionally, ensure the light has a specific intensity when stopping
         if (globalLight != null)
         {
