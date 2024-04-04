@@ -8,6 +8,12 @@ public class StomachPainQTE : MonoBehaviour
     private float originalSpeed;
     private float maxSpeed = 6f;
     private bool qteRunning = false;
+    public SoundFXManager soundFXManager;
+
+    private void Start()
+    {
+        soundFXManager = SoundFXManager.GetInstance();
+    }
 
     void OnEnable()
     {
@@ -20,6 +26,9 @@ public class StomachPainQTE : MonoBehaviour
     {
         if (qteRunning && Input.GetKeyDown(KeyCode.Space))
         {
+            AudioClip fart = Resources.Load<AudioClip>("Sounds/Clips/Fart");
+            soundFXManager.Play(fart, 0.6f);
+
             IncreaseSpeed();
         }
     }
