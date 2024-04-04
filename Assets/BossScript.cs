@@ -8,6 +8,7 @@ public class BossCharacter : MonoBehaviour
     public Transform teleportLineSpawnPoint; // Assign in Inspector
     public BossHealthBarUI healthBarUI;
 
+    public GameObject EnemyHandler;
     public FinishLine FinishLineScript; // Assign this via the Inspector
 
     public GameObject SpawnLocation;
@@ -71,6 +72,7 @@ private void OnTriggerEnter2D(Collider2D collider)
         FinishLineScript.StopFlashingLight();
         FinishLineScript.bossMusic.Stop();
         FinishLineScript.audioSource.Play();
+        EnemyHandler.SetActive(false);
 
     }
     private void FollowPlayer()
