@@ -14,7 +14,6 @@ public class SoundFXManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Keep the object alive between scenes
         }
         else
         {
