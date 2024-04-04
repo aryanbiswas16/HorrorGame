@@ -7,10 +7,17 @@ public class BossCharacter : MonoBehaviour
     public GameObject teleportLinePrefab; // Assign in Inspector
     public Transform teleportLineSpawnPoint; // Assign in Inspector
     public BossHealthBarUI healthBarUI;
+
+    public FinishLine FinishLineScript; // Assign this via the Inspector
+
+    public GameObject SpawnLocation;
+
     public int damageOnCollision = 10; // Damage boss takes on collision
     public float moveSpeed = 3.0f; // Boss movement speed
     public float detectionDistance = 5f; // Distance to detect walls
     private GameObject player; // Reference to the player GameObject
+
+    public DoorController doorController;
 
     public LayerMask wallLayer; // Assign this in the Inspector
 
@@ -57,7 +64,13 @@ private void OnTriggerEnter2D(Collider2D collider)
     private void Die()
     {
         gameObject.SetActive(false);
+        doorController.OpenDoor();
         Instantiate(teleportLinePrefab, teleportLineSpawnPoint.position, Quaternion.identity);
+        SpawnLocation.SetActive(false);
+        healthBarUI.gameObject.SetActive(false);
+        FinishLineScript.StopFlashingLight();
+
+
     }
     private void FollowPlayer()
     {
