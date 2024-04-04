@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
             
             if (stepTimer >= stepInterval)
             {
-                soundFXManager.Play(stepSound, 1f);
+                soundFXManager.Play(stepSound, 0.1f);
                 stepTimer = 0f; 
             }
         }

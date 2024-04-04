@@ -7,6 +7,12 @@ public class MonsterChase : MonoBehaviour
     public Transform teleportLine; // Assign the TeleportLine object in the inspector
     public GameObject gameOverSign; // Assign the GameOver sign object in the inspector
     public float speed = 2f; // Adjust speed as necessary
+    public SoundFXManager soundFXManager;
+
+    private void Start()
+    {
+        soundFXManager = SoundFXManager.GetInstance();
+    }
 
     private void Update()
     {
@@ -19,6 +25,8 @@ public class MonsterChase : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             // If the monster collides with the player, activate the game over sign and potentially stop the game
+            AudioClip deathSound = Resources.Load<AudioClip>("Sounds/Clips/Instant-Death");
+            soundFXManager.Play(deathSound, 1f);
             gameOverSign.SetActive(true);
             // Here you can add any additional game over logic, such as freezing the game or displaying a restart button
         }

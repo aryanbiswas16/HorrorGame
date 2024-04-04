@@ -8,10 +8,16 @@ public class ActivateChaseScript : MonoBehaviour
     public GameObject monster; // Assign this in the Inspector with your monster GameObject
     public GameObject globalLightGameObject; // Assign the global light GameObject in the inspector
 
+    public SoundFXManager soundFXManager;
+    public AudioSource audioSource; 
+
+
     private UnityEngine.Rendering.Universal.Light2D globalLight; // For direct manipulation of the Light 2D component
 
     private void Start()
     {
+        soundFXManager = SoundFXManager.GetInstance();
+
         // Attempt to get the Light2D component from the assigned globalLightGameObject
         globalLight = globalLightGameObject.GetComponent<UnityEngine.Rendering.Universal.Light2D>();
 
@@ -26,6 +32,13 @@ public class ActivateChaseScript : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            AudioClip roar = Resources.Load<AudioClip>("Sounds/Clips/Big-monster-roar");
+            AudioClip chaseTheme = Resources.Load<AudioClip>("Sounds/Clips/Chase-theme");
+            audioSource.clip = chaseTheme;
+
+            soundFXManager.Play(roar, 1f);
+            audioSource.Play();
+
             monster.SetActive(true); // Activate the monster object
             StartCoroutine(FlashLight()); // Start the light flashing coroutine
         }
@@ -36,6 +49,7 @@ public class ActivateChaseScript : MonoBehaviour
     public void StopFlashingLight()
     {
         stopFlashing = true;
+        audioSource.Stop();
         // Optionally, ensure the light has a specific intensity when stopping
         if (globalLight != null)
         {
