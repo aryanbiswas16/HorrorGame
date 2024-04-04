@@ -89,7 +89,7 @@ public class Flashlight : MonoBehaviour
     // Public method to increase battery life by 5 seconds
     public void IncreaseBatteryLife()
     {
-        currentBatteryLife = Mathf.Min(currentBatteryLife + 20, batteryLife);
+        currentBatteryLife = Mathf.Min(currentBatteryLife + 10, batteryLife);
         UpdateBatteryLifeUI(); // Update the UI to reflect the new battery life
     }
 }
