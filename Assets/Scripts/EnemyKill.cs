@@ -46,7 +46,7 @@ public class GameOverTrigger : MonoBehaviour
                 Debug.LogError("Sound file not found");
             }else
             {
-                soundFXManager.Play(deathSound);
+                soundFXManager.Play(deathSound, 1f);
             }
             
             gameOverSign.SetActive(true); 

@@ -11,16 +11,23 @@ public class Player : MonoBehaviour
 
     public float moveSpeed = 3;
 
+    private SoundFXManager soundFXManager;
+    float stepInterval = 0.3f;
+    float stepTimer = 0f;
+
     BoxCollider2D boxCollider;
 
     void Start()
     {
+        soundFXManager = SoundFXManager.GetInstance();
+        
         boxCollider = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        AudioClip stepSound = Resources.Load<AudioClip>("Sounds/Clips/Player-footstep");
         key_up = Input.GetKey(KeyCode.W);
         key_down = Input.GetKey(KeyCode.S);
         key_left = Input.GetKey(KeyCode.A);
@@ -32,6 +39,18 @@ public class Player : MonoBehaviour
         hSpeed = hSpeed * moveSpeed * Time.deltaTime;
         vSpeed = vSpeed * moveSpeed * Time.deltaTime;
         Vector3 pos = transform.position;
+
+        //footstep sounds
+        if (hSpeed != 0 || vSpeed != 0)
+        {
+            stepTimer += Time.deltaTime;
+            
+            if (stepTimer >= stepInterval)
+            {
+                soundFXManager.Play(stepSound, 0.1f);
+                stepTimer = 0f; 
+            }
+        }
 
         //Horizontal Collision Check
         if (Physics2D.OverlapBox(new Vector2(pos.x + hSpeed, pos.y), boxCollider.size, 0, LayerMask.GetMask("Wall")))

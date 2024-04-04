@@ -26,9 +26,9 @@ public class SoundFXManager : MonoBehaviour
     }
 
     // Play a sound effect
-    public void Play(AudioClip soundEffect)
+    public void Play(AudioClip soundEffect, float volume)
     {
-        audioSource.PlayOneShot(soundEffect);
+        audioSource.PlayOneShot(soundEffect, volume);
     }
 
     // Static method to access the singleton instance

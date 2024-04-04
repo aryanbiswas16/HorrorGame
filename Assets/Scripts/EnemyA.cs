@@ -8,6 +8,7 @@ public class EnemyA : Enemy
 
     protected override void FollowPlayerBehavior()
     {
+        AudioClip attackSound = Resources.Load<AudioClip>("Sounds/Clips/Dino-roar");
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
         bool flashlightShiningOnEnemy = IsFlashlightShiningOnEnemy();
         
@@ -15,6 +16,7 @@ public class EnemyA : Enemy
         {
             if (flashlightShiningOnEnemy)
             {
+                soundFXManager.Play(attackSound, 0.1f);
                 hasBeenIlluminated = true; 
                 isPlayerInRange = true;
             }

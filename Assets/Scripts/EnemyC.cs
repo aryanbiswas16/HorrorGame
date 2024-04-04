@@ -15,7 +15,6 @@ public class EnemyC : Enemy
         base.Start();
         ChangeState(State.Patrolling);
         nextPatrolPoint = pointB.position;
-
     }
 
     protected override void Update()
@@ -27,11 +26,14 @@ public class EnemyC : Enemy
     {
         float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
         bool flashlightShiningOnEnemy = IsFlashlightShiningOnEnemy();
+        AudioClip attackSound = Resources.Load<AudioClip>("Sounds/Clips/Banshee-scream");
+
 
         if (distanceToPlayer <= followRadius && flashlightShiningOnEnemy && !Physics2D.Raycast(transform.position, playerTransform.position - transform.position, distanceToPlayer, obstacleLayer))
         {
             if (currentState != State.Chasing)
             {
+                soundFXManager.Play(attackSound, 0.5f);
                 ChangeState(State.Chasing);
             }
             MoveWithObstacleAvoidance(playerTransform.position - transform.position);
