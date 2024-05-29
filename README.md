@@ -1,6 +1,6 @@
 # My Mom Needs Me For Dinner But There's Monsters In The Office!
 
-Welcome to "My Mom Needs Me For Dinner But There's Monsters In The Office!", a survival horror game with a twist of comedy, designed and developed as part of CISC 226: Game Design. Navigate through a dimly lit office maze, dodge monsters, beat deadlines, and manage your relationship with your mom—all with just your wits and a dying smartphone!
+Welcome to "My Mom Needs Me For Dinner But There's Monsters In The Office!", a survival horror game with a twist of comedy, designed and developed as part of our Game Design course. Navigate through a dimly lit office maze, dodge monsters, beat deadlines, and manage your relationship with your mom—all with just your wits and a dying smartphone!
 
 ## Game Overview
 
@@ -11,7 +11,7 @@ You're stuck at the office late at night, but your mom expects you home for dinn
 - **Survival Horror**: Traverse the office environment, dodging monsters attracted to your only source of light—your dying smartphone.
 - **Resource Management**: Keep tabs on your flashlight battery and other crucial resources to survive the night.
 - **Quick Time Events**: Stay on your toes with quick time events that could be your key to survival or your path to doom.
-- **Relationship Management**: Your mom is waiting, and her patience is wearing thin. Manage your relationship through timely updates and make sure you're not grounded for eternity!
+- **Relationship Management**: Your mom is waiting, and her patience is wearing thin. Manage your relationship through timely updates and ensure you're not grounded for eternity!
 
 ## Installation
 
