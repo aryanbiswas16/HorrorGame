@@ -28,13 +28,8 @@ https://kamisama165.itch.io/my-mom-needs-me-home-for-dinner-but-theres-monsters-
 
 ## Built With
 
-- [Game Engine/Technology used]
-- [Programming languages]
-- [Any frameworks, libraries, or any other tools used]
-
-## Contributing
-
-Interested in contributing? Great! Please read our [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+- Unity
+- C#
 
 ## Authors
 
