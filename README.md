@@ -1,4 +1,4 @@
-![Game Brochure](Face your fears.png)
+![Game Brochure](https://github.com/aryanbiswas16/HorrorGame/blob/Kevin04-03/Face%20your%20fears.png?raw=true)
 # My Mom Needs Me For Dinner But There's Monsters In The Office!
 
 Welcome to "My Mom Needs Me For Dinner But There's Monsters In The Office!", a survival horror game with a twist of comedy, designed and developed as part of our Game Design course. Navigate through a dimly lit office maze, dodge monsters, beat deadlines, and manage your relationship with your mom—all with just your wits and a dying smartphone!
