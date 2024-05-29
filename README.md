@@ -21,7 +21,7 @@ https://kamisama165.itch.io/my-mom-needs-me-home-for-dinner-but-theres-monsters-
 ## How to Play
 
 1. **Start the Game**: Launch the game from the main menu.
-2. **Navigate**: Use [insert control details] to move through the office.
+2. **Navigate**: read the instructions page to understand the controls.
 3. **Use Items**: Interact with objects and use items found around the office to aid your escape.
 4. **Monitor Resources**: Keep an eye on your battery life and collect batteries scattered around to keep your flashlight running.
 5. **Stay Quiet**: Avoid making noise as much as possible to not attract monsters.
