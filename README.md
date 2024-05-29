@@ -41,14 +41,9 @@ Interested in contributing? Great! Please read our [CONTRIBUTING.md](CONTRIBUTIN
 - **Kevin Hu**
 - **Safowan Mostaque**
 - **Hayden Chandler**
-- **Jared Simpson**
+
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
-## Acknowledgments
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- etc
